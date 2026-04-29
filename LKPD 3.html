@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LKPD 3 - Janji & Karya Kelompok</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #2c3e50; --accent: #e74c3c; --bg: #f0f2f5; --success: #27ae60; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg); padding: 20px; color: var(--primary); }
+        .container { max-width: 700px; background: white; margin: 0 auto; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        header { text-align: center; margin-bottom: 30px; }
+        header h2 { color: var(--accent); margin-bottom: 5px; font-weight: 700; }
+        
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+        input[type="text"], textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px; box-sizing: border-box; transition: 0.3s; font-family: inherit; }
+        input:focus, textarea:focus { border-color: var(--accent); outline: none; background: #fffcfc; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th { background-color: #fff5f4; color: var(--accent); padding: 12px; border: 1px solid #ffe5e2; }
+        td { padding: 10px; border: 1px solid #eee; }
+        .janji-input { border: 1px solid #ddd; padding: 8px; border-radius: 5px; width: 95%; font-family: inherit; }
+
+        .upload-section { background: #f9f9f9; padding: 20px; border-radius: 12px; border: 2px dashed #ddd; text-align: center; margin-top: 30px; }
+        .upload-section input[type="file"] { margin-top: 10px; }
+
+        button { background: var(--accent); color: white; border: none; padding: 18px; border-radius: 12px; width: 100%; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; margin-top: 30px; letter-spacing: 1px; }
+        button:hover { background: #c0392b; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3); }
+
+        #result-area { display: none; text-align: center; padding: 40px; background: #ebfcf4; border-radius: 20px; border: 3px solid var(--success); margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h2>LKPD 3</h2>
+        <p style="font-weight: 600;">Silih Asah, Silih Asih, Silih Asuh</p>
+        <p style="color: #666;">SMP Asshiddiqiyah</p>
+    </header>
+
+    <form id="quizForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSfpYTaCk3OFxSPfvkgkLDiV5HlPUzRnISMOgiaSLi6hFZHrIA/formResponse" method="POST">
+        
+        <div class="form-group">
+            <label>1. Nama Kelompok</label>
+            <input type="text" name="entry.367109342" placeholder="Masukkan nama kelompok..." required>
+        </div>
+
+        <div class="form-group">
+            <label>2. Anggota Kelompok</label>
+            <textarea name="entry.2010852234" placeholder="Sebutkan nama-nama anggota kelompok..." required></textarea>
+        </div>
+
+        <hr style="border: 0; border-top: 2px solid #f1f2f6; margin: 30px 0;">
+
+        <label style="font-size: 16px; color: var(--accent);">Tabel Janji Penerapan di Kelas:</label>
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="35%">Janji Kami</th>
+                    <th>Contoh Penerapannya di Kelas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><b>Silih Asah</b><br><small>(Saling Mengasah Otak)</small></td>
+                    <td><input type="text" class="janji-input" name="entry.636864358" placeholder="Kami berjanji akan..." required></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><b>Silih Asih</b><br><small>(Saling Menyayangi)</small></td>
+                    <td><input type="text" class="janji-input" name="entry.2045273244" placeholder="Kami berjanji akan..." required></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><b>Silih Asuh</b><br><small>(Saling Menjaga)</small></td>
+                    <td><input type="text" class="janji-input" name="entry.35762715" placeholder="Kami berjanji akan..." required></td>
+                <tr>
+                    <td>4</td>
+                    <td><b>Sisipkan </b><br><small>(Link Foto Poster Kelompok Kamu)</small></td>
+                    <td><input type="text" class="janji-input" name="entry.358290215" placeholder="..." required></td>
+                </tr>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" onclick="kirimLKPD()">KIRIM JAWABAN</button>
+    </form>
+
+    <div id="result-area">
+        <h2 style="margin:0; color: var(--success);">BERHASIL DIKIRIM!</h2>
+        <p>Terima kasih kelompok! Janji kalian telah tercatat.</p>
+        <p style="color: #666; font-size: 14px;">Mari kita laksanakan janji Silih Asah, Silih Asih, dan Silih Asuh bersama-sama.</p>
+    </div>
+</div>
+
+<script>
+    // Fungsi untuk mengubah gambar menjadi teks agar bisa masuk ke Google Form
+    function convertImage() {
+        const file = document.getElementById('fotoPoster').files[0];
+        const status = document.getElementById('uploadStatus');
+        const hiddenInput = document.getElementById('hiddenFotoText');
+        
+        if (file) {
+            const reader = new FileReader();
+            status.innerText = "⏳ Sedang memproses foto...";
+            status.style.color = "#f39c12";
+
+            reader.onloadend = function() {
+                hiddenInput.value = reader.result;
+                status.innerText = "✅ Foto siap dikirim!";
+                status.style.color = "#27ae60";
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function kirimLKPD() {
+        const form = document.getElementById('quizForm');
+        
+        if (!form.checkValidity()) {
+            alert("⚠️ Harap isi Nama Kelompok, Anggota, dan semua Janji terlebih dahulu!");
+            return;
+        }
+
+        const data = new FormData(form);
+        
+        fetch(form.action, {
+            method: 'POST',
+            body: data,
+            mode: 'no-cors'
+        }).then(() => {
+            form.style.display = 'none';
+            document.getElementById('result-area').style.display = 'block';
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }).catch(() => {
+            alert("❌ Terjadi kesalahan pengiriman. Periksa koneksi internet Anda.");
+        });
+    }
+</script>
+
+</body>
+</html>
